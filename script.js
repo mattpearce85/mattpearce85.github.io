@@ -34,7 +34,7 @@
   const reset = () => {
     alertId = 0;
     queue = [1, 2, 3, 4].map(n => ({label: 'Marketing message ' + String(n).padStart(2, '0'), urgent: false}));
-    status.textContent = 'Try an urgent alert. See what moves to the front.';
+    status.textContent = 'Add an urgent alert to move it ahead of marketing messages.';
     render();
   };
   alertButton.addEventListener('click', () => {

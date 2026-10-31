@@ -1,28 +1,26 @@
-# Matthew Pearce — Software & Systems
+# Matthew Pearce — Software Engineer & Team Leader
 
-A standalone portfolio built with HTML, CSS, and vanilla JavaScript. No build step, external assets, tracking, backend, or account is required to view the site. Project diagrams and the interactive priority queue are illustrative; no real messages are sent.
+Portfolio: https://mattpearce85.github.io/
+
+Built with HTML, CSS, and JavaScript. No build step or external dependencies.
 
 ## Files
 
-- `index.html`: portfolio content and inline SVG illustrations
-- `style.css`: responsive layout and print styling
-- `script.js`: priority-queue demo and print behavior
-- `.nojekyll`: serve this static site without Jekyll processing
+- `index.html`: portfolio text and SVG graphics
+- `style.css`: layout, typography, and print styles
+- `script.js`: scroll animation, priority-queue demo, and print controls
+- `.nojekyll`: tells GitHub Pages to serve the files without Jekyll
+
+## Update the site
+
+Upload the changed files to the root of the repository and commit to `main`. GitHub Pages publishes from `main` and `/(root)`. Wait for the deployment to finish, then refresh the website. If an older version appears, use Ctrl + Shift + R.
 
 ## Preview locally
 
-From this folder, run `python3 -m http.server 8000`, then open `http://localhost:8000`.
+Run `python3 -m http.server 8000` from this folder, then open http://localhost:8000/.
 
-## Publish with GitHub Pages
+## Check changes
 
-1. Create a public repository owned by your GitHub account. For the root user site, use `mattpearce85.github.io` only if it is available; do not overwrite an existing site. Otherwise use a new project repository.
-2. Commit these five files at the root of the repository's `main` branch.
-3. In **Settings → Pages → Build and deployment**, select **Deploy from a branch**, then choose **main** and **/(root)** and save.
-4. Wait for the Pages deployment to succeed, then use the **Visit site** link in Pages settings. Verify it in a signed-out/private browser window.
-5. This user-site configuration uses `https://mattpearce85.github.io/` for its canonical and `og:url` tags. If moving to another host, update both tags.
+Run `node --check script.js`. Check navigation, expanded project details, the queue controls, scroll animation, reduced-motion behavior, mobile layouts, and print output.
 
-GitHub instructions: https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site
-
-## Checks
-
-Run `node --check script.js`. Check the queue's insert, process, empty, and reset states; navigation anchors; responsive layout; and print overview before publishing updates.
+If moving to a different address, update the canonical and `og:url` tags in `index.html`.
