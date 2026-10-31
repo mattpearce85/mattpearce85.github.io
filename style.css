@@ -433,3 +433,25 @@ footer .icon{width:12px;height:12px}
 .capability-strip .icon{width:14px;height:14px}
 }
 
+
+/* Three separate gimbals, not planar ellipses. Text sits outside the 3D stage. */
+.gyroscope{position:absolute;inset:0;perspective:850px;transform-style:preserve-3d;pointer-events:none}
+.gyroscope .orbit{left:52%;top:49%;width:82%;height:auto;aspect-ratio:1;border:2px solid #a8bf7d;border-radius:50%;transform-style:preserve-3d;box-shadow:0 0 14px #d5f77b0b,inset 0 0 12px #d5f77b0b}
+.gyroscope .orbit-one{transform:translate(-50%,-50%) rotateZ(-24deg) rotateX(calc(64deg + var(--gyro-x,0deg)));border-color:#d5f77b}
+.gyroscope .orbit-two{width:72%;transform:translate(-50%,-50%) rotateZ(28deg) rotateY(calc(58deg + var(--gyro-y,0deg)));border-color:#8fa979}
+.gyroscope .orbit-three{width:63%;transform:translate(-50%,-50%) rotateX(36deg) rotateY(-24deg) rotateZ(calc(35deg + var(--gyro-z,0deg)));border-color:#c3d4b1}
+.gyroscope .orbit:before{content:'';position:absolute;width:11px;height:11px;left:50%;top:-6px;right:auto;border-radius:50%;background:var(--accent);box-shadow:0 0 18px #d5f77b66}
+.gyroscope .orbit:after{content:'';position:absolute;left:calc(50% - 3px);bottom:-4px;width:7px;height:7px;border-radius:50%;background:#9aaf80}
+.core{transform:translate(-50%,-50%);z-index:1;background:linear-gradient(135deg,#3b482d,#242b1f 60%,#354525)}
+.art-node,.art-top,.art-bottom{z-index:2}
+.axis{opacity:.55}
+.concept-figure{margin:28px 0 0;border:1px solid #3d4b33;background:radial-gradient(ellipse at 50% 30%,#35452a80,transparent 75%),#1b2318;overflow:hidden}
+.concept-art{display:block;width:100%;height:auto;max-height:350px}
+.concept-figure figcaption{padding:20px 22px 0;border-top:1px solid #3d4b33}
+.concept-kicker{display:block;color:var(--accent);font:14px/1.6 var(--mono);letter-spacing:.2px}
+.concept-figure p{font-size:16px;line-height:1.6;color:var(--muted);margin:10px 0 16px}
+.concept-figure .diagram-note{font-size:14px;line-height:1.6;letter-spacing:0;margin-bottom:20px}
+.compact-project details{margin-top:24px}
+@media(max-width:700px){.gyroscope .orbit-one{width:86%}.gyroscope .orbit-two{width:76%}.gyroscope .orbit-three{width:66%}.concept-figure figcaption{padding:18px 18px 0}}
+@media(prefers-reduced-motion:reduce){.system-art{--gyro-x:0deg!important;--gyro-y:0deg!important;--gyro-z:0deg!important}}
+@media print{.concept-figure{display:none}}

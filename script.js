@@ -71,18 +71,19 @@
   let listening = false;
   let frame = null;
   const reset = () => {
-    ['--orbit-turn', '--core-drift', '--core-turn'].forEach(name => art.style.removeProperty(name));
+    ['--gyro-x', '--gyro-y', '--gyro-z'].forEach(name => art.style.removeProperty(name));
   };
   const draw = () => {
     frame = null;
     if (motion.matches || !visible) return;
     const bounds = art.getBoundingClientRect();
-    // A full viewport traversal produces at most 18 degrees and 14px of drift.
+    // Independent axes travel a visible half-turn as the art crosses the viewport.
+    // No timer, inertia, or perpetual motion; reversing scroll reverses the gimbals.
     const progress = Math.max(0, Math.min(1, (window.innerHeight - bounds.top) / (window.innerHeight + bounds.height)));
     const offset = progress - 0.5;
-    art.style.setProperty('--orbit-turn', (offset * 18).toFixed(3) + 'deg');
-    art.style.setProperty('--core-drift', (offset * -14).toFixed(3) + 'px');
-    art.style.setProperty('--core-turn', (offset * 4).toFixed(3) + 'deg');
+    art.style.setProperty('--gyro-x', (offset * 180).toFixed(3) + 'deg');
+    art.style.setProperty('--gyro-y', (offset * -160).toFixed(3) + 'deg');
+    art.style.setProperty('--gyro-z', (offset * 140).toFixed(3) + 'deg');
   };
   const schedule = () => {
     if (frame === null && visible && !motion.matches) frame = window.requestAnimationFrame(draw);
