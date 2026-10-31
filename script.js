@@ -61,3 +61,59 @@
   printButton.addEventListener('click', () => window.print());
   reset();
 })();
+
+// FIG. 01 follows scroll position, not a timer. Only observe scroll while visible.
+(() => {
+  const art = document.querySelector('.system-art');
+  if (!art) return;
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let visible = false;
+  let listening = false;
+  let frame = null;
+  const reset = () => {
+    ['--orbit-turn', '--core-drift', '--core-turn'].forEach(name => art.style.removeProperty(name));
+  };
+  const draw = () => {
+    frame = null;
+    if (motion.matches || !visible) return;
+    const bounds = art.getBoundingClientRect();
+    // A full viewport traversal produces at most 18 degrees and 14px of drift.
+    const progress = Math.max(0, Math.min(1, (window.innerHeight - bounds.top) / (window.innerHeight + bounds.height)));
+    const offset = progress - 0.5;
+    art.style.setProperty('--orbit-turn', (offset * 18).toFixed(3) + 'deg');
+    art.style.setProperty('--core-drift', (offset * -14).toFixed(3) + 'px');
+    art.style.setProperty('--core-turn', (offset * 4).toFixed(3) + 'deg');
+  };
+  const schedule = () => {
+    if (frame === null && visible && !motion.matches) frame = window.requestAnimationFrame(draw);
+  };
+  const sync = () => {
+    const active = visible && !motion.matches;
+    if (active && !listening) {
+      window.addEventListener('scroll', schedule, {passive: true});
+      window.addEventListener('resize', schedule, {passive: true});
+      listening = true;
+    } else if (!active && listening) {
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+      listening = false;
+    }
+    if (!active && frame !== null) {
+      window.cancelAnimationFrame(frame);
+      frame = null;
+    }
+    if (motion.matches) reset();
+    if (active) schedule();
+  };
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      visible = entries[0].isIntersecting;
+      sync();
+    });
+    observer.observe(art);
+  } else {
+    visible = true;
+    sync();
+  }
+  motion.addEventListener('change', sync);
+})();
